@@ -4,6 +4,7 @@ import {createStore} from 'redux'
 const INCREMENT = 'increment'
 const DECREMENT = 'decrement'
 const POST_BOOK = 'post_book'
+const DELETE_BOOK = 'delete_book'
 
 //Step 3 define reducers
 const reducer = function(state={books:[]}, action){
@@ -12,6 +13,19 @@ const reducer = function(state={books:[]}, action){
         // let books = state.books.concat(action.payload)
         // return {books}
         return {books: [...state.books, ...action.payload]}
+
+        case DELETE_BOOK:
+        //create a copy of current array of books
+        const currentBookToDelete = [...state.books]
+        // determine at which index in books array is the book to be deleted
+        const indexToDelete = currentBookToDelete.findIndex(
+            function(book){
+                return book.id === action.payload.id
+            }
+        )
+
+        return {books: [...currentBookToDelete.slice(0, indexToDelete), 
+            ...currentBookToDelete.slice(indexToDelete + 1)]}
         
     }
     return state
@@ -57,5 +71,16 @@ store.dispatch(
             description: 'this is a description',
             price: 60
         }]
+    }
+)
+
+//delete a book
+
+store.dispatch(
+    {
+        type: DELETE_BOOK,
+        payload: {
+            id: 1
+        }
     }
 )
