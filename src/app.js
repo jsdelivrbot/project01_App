@@ -9,8 +9,9 @@ const POST_BOOK = 'post_book'
 const reducer = function(state={books:[]}, action){
     switch(action.type){
         case POST_BOOK:
-        let books = state.books.concat(action.payload)
-        return {books}
+        // let books = state.books.concat(action.payload)
+        // return {books}
+        return {books: [...state.books, ...action.payload]}
         
     }
     return state
@@ -50,11 +51,11 @@ store.dispatch(
 store.dispatch(
     {
         type: POST_BOOK,
-        payload: {
+        payload: [{
             id: 3,
             title: 'this is the third book title',
             description: 'this is a description',
             price: 60
-        }
+        }]
     }
 )
