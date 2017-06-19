@@ -1,6 +1,8 @@
 "use strict"
 import {createStore} from 'redux'
 
+const INCREMENT = 'increment'
+
 //Step 3 define reducers
 
 //Step 1 create the store
@@ -11,3 +13,9 @@ store.subscribe( () => {
 })
 
 //Step 2 create and dispatch actions
+store.dispatch(
+    {
+        type: INCREMENT,
+        payload: 1
+    }
+)
