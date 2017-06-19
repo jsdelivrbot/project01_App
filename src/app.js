@@ -5,6 +5,7 @@ const INCREMENT = 'increment'
 const DECREMENT = 'decrement'
 const POST_BOOK = 'post_book'
 const DELETE_BOOK = 'delete_book'
+const UPDATE_BOOK = 'update_book'
 
 //Step 3 define reducers
 const reducer = function(state={books:[]}, action){
@@ -23,9 +24,30 @@ const reducer = function(state={books:[]}, action){
                 return book.id === action.payload.id
             }
         )
-
         return {books: [...currentBookToDelete.slice(0, indexToDelete), 
             ...currentBookToDelete.slice(indexToDelete + 1)]}
+        
+        case UPDATE_BOOK:
+        //create a copy of current array of books
+        const currentBookToUpdate = [...state.books]
+        // determine at which index in books array is the book to be Updated
+        const indexToUpdate = currentBookToUpdate.findIndex(
+            function(book){
+                return book.id === action.payload.id
+            }
+        )
+        //Create a new book object with the new values and with the same array
+        //index of the item we want to replace. To archive this use ..spread
+        //or concat method
+        const newBookToUpdate = {
+            ...currentBookToUpdate[indexToUpdate],
+            title: action.payload.title
+        }
+        console.log('newBookToUpdate: ', newBookToUpdate)
+        //use slice to remove the book at the specified index, replace with the new 
+        //object and concate with the rest of items in the array
+        return {books: [...currentBookToUpdate.slice(0, indexToUpdate), newBookToUpdate,
+            ...currentBookToUpdate.slice(indexToUpdate + 1)]}
         
     }
     return state
@@ -84,3 +106,12 @@ store.dispatch(
         }
     }
 )
+
+//update a book
+store.dispatch({
+    type: UPDATE_BOOK,
+    payload:{
+        id: 2,
+        title: 'updated title'
+    }
+})
