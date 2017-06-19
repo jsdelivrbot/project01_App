@@ -6,11 +6,11 @@ const DECREMENT = 'decrement'
 const POST_BOOK = 'post_book'
 
 //Step 3 define reducers
-const reducer = function(state=[], action){
+const reducer = function(state={books:[]}, action){
     switch(action.type){
         case POST_BOOK:
-        let books = state.concat(action.payload)
-        return books
+        let books = state.books.concat(action.payload)
+        return {books}
         
     }
     return state
@@ -21,7 +21,6 @@ const store = createStore(reducer)
 
 store.subscribe(function(){
     console.log('current state is: ', store.getState())
-    console.log('current price is: ', store.getState()[1].price)
 })
 
 //Step 2 create and dispatch actions
