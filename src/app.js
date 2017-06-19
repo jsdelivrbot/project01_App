@@ -9,7 +9,8 @@ const POST_BOOK = 'post_book'
 const reducer = function(state=[], action){
     switch(action.type){
         case POST_BOOK:
-        return state = action.payload;
+        let books = state.concat(action.payload)
+        return books
         
     }
     return state
@@ -30,15 +31,31 @@ store.dispatch(
         payload: [{
             id: 1,
             title: 'this is the book title',
-            descriptiom: 'this is a description',
+            description: 'this is a description',
             price: 10
         },
         {
             id: 2,
             title: 'this is the second book title',
-            descriptiom: 'this is a description',
+            description: 'this is a description',
             price: 11
         }]
     }
 )
 
+
+//CRUS operations = create, read, update, delete
+
+//dispatch a second action
+
+store.dispatch(
+    {
+        type: POST_BOOK,
+        payload: {
+            id: 3,
+            title: 'this is the third book title',
+            description: 'this is a description',
+            price: 60
+        }
+    }
+)
