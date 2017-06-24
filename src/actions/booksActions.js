@@ -41,7 +41,7 @@ export function updatePrice(book) {
 export function addTest(book) {
     return {
         type: ADD_TEST,
-        payload: ex
+        payload: book
     }
 
 }
